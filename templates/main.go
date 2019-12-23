@@ -5,18 +5,22 @@ import (
 	"os"
 	"text/template"
 )
-func main()  {
-	tpl,err:=template.ParseFiles("templates/tpl.gohtml")
-	if err!=nil{
-		log.Fatalln(err)
-	}
-	nf,err:=os.Create("index.html")
-	if err!=nil{
-		log.Println("Error creating file",err)
+
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*"))
+}
+func main() {
+
+	nf, err := os.Create("index.html")
+	if err != nil {
+		log.Println("Error creating file", err)
 	}
 	defer nf.Close()
-	err=tpl.Execute(nf,nil)
-	if err!=nil{
+
+	err = tpl.ExecuteTemplate(nf, "tpl.gohtml", nil)
+	if err != nil {
 		log.Fatalln(err)
 	}
 }
