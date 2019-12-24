@@ -19,7 +19,7 @@ func main() {
 	}
 	defer nf.Close()
 
-	err = tpl.ExecuteTemplate(nf, "tpl.gohtml", nil)
+	err = tpl.ExecuteTemplate(nf, "tpl.gohtml", 42)
 	if err != nil {
 		log.Fatalln(err)
 	}
