@@ -6,13 +6,9 @@
 </head>
 <body>
 <ul>
-    
-    <li>0 - Andrea</li>
-    
-    <li>1 - luca</li>
-    
-    <li>2 - Stefano</li>
-    
+    {{range .}}
+    <li>{{.}}</li>
+    {{end}}
 </ul>
 </body>
 </html>
