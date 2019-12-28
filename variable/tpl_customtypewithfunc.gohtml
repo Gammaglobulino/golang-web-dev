@@ -6,8 +6,10 @@
 </head>
 <body>
 <ul>
-    {{range $key, $value := .}}
-        <li>{{$key}} - {{$value}}</li>
+    {{range .}}
+        {{if .Vivo}}
+        <li>{{.Name | uc}} - {{uc .Lastname}}</li>
+        {{end}}
     {{end}}
 </ul>
 </body>

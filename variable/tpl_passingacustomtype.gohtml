@@ -6,8 +6,8 @@
 </head>
 <body>
 <ul>
-    {{range $key, $value := .}}
-        <li>{{$key}} - {{$value}}</li>
+    {{range .}}
+    <li>{{.Name}} - {{.Lastname}}</li>
     {{end}}
 </ul>
 </body>

@@ -3,13 +3,17 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 	"text/template"
 )
 
-var tplnew *template.Template
+var tplnew1 *template.Template
+var fm = template.FuncMap{
+	"uc": strings.ToUpper,
+}
 
 func init() {
-	tplnew = template.Must(template.ParseGlob("variable/*"))
+	tplnew1 = template.Must(template.New("").Funcs(fm).ParseGlob("variable/*"))
 }
 func main() {
 	//persons := []string{"Andrea", "luca", "Stefano"}
@@ -21,10 +25,12 @@ func main() {
 	type person struct {
 		Name     string
 		Lastname string
+		Vivo     bool
 	}
 	ps := []person{
-		{"Andrea", "Mazzanti"},
-		{"Stefano", "Mazzanti"},
+		{"Andrea", "Mazzanti", true},
+		{"Stefano", "Mazzanti", true},
+		{"Giuseppa", "Volpi", true},
 	}
 
 	nf, err := os.Create("index.html")
@@ -33,7 +39,7 @@ func main() {
 	}
 	defer nf.Close()
 
-	err = tplnew.ExecuteTemplate(nf, "tpl_passingacustomtype.gohtml", ps)
+	err = tplnew1.ExecuteTemplate(nf, "tpl_customtypewithfunc.gohtml", ps)
 	if err != nil {
 		log.Fatalln(err)
 	}
